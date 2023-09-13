@@ -48,6 +48,20 @@ class User:
     def create_user(cls, data):
         query = "INSERT INTO users (first_name, last_name, email, password) VALUES ( %(first_name)s, %(last_name)s,%(email)s,%(password)s);"
         return connectToMySQL(cls.db_name).query_db(query, data)
+    
+    @classmethod
+    def update_user(cls, data):
+        query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email= %(email)s WHERE id = %(user_id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+    
+    @classmethod
+    def delete_user(cls, data):
+        query = "DELETE FROM users WHERE id = %(user_id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+
+    
+    
+
 
     @staticmethod
     def validate_user(user):
@@ -67,5 +81,20 @@ class User:
             is_valid = False
         if user['confirm_password'] != user['password']:
             flash('The passwords do not match',  'passwordConfirm')
+            is_valid = False
+        return is_valid
+    
+    @staticmethod
+    def validate_user_update(user):
+        is_valid = True
+        # test whether a field matches the pattern
+        if not EMAIL_REGEX.match(user['email']): 
+            flash("Invalid email address!", 'emailSignUp')
+            is_valid = False
+        if len(user['first_name'])< 2:
+            flash('First name must be more than 2 characters', 'firstName')
+            is_valid = False
+        if len(user['last_name'])< 2:
+            flash('Last name must be more than 2 characters', 'lastName')
             is_valid = False
         return is_valid

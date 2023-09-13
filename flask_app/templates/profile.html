@@ -10,31 +10,41 @@
     <nav class="navbar navbar-light bg-light">
         <form class="container-fluid justify-content-between">
           <h1 class="me-2" type="button">Welcome {{loggedUser.first_name}}</h1>
-          <a href="/logout" class="btn btn-sm btn-outline-secondary" type="button">Logout</a>
+          <div>
+             <a href="/" class="btn btn-sm btn-outline-primary" type="button">Dashboard</a>
+            <a href="/logout" class="btn btn-sm btn-outline-secondary" type="button">Logout</a>
+          </div>
+         
         </form>
       </nav>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Email</th>
-            <th scope="col">Password</th>
-          </tr>
-        </thead>
-        <tbody>
-  
-          <tr>
-            <th scope="row">{{loggedUser.id}}</th>
-            <td>{{loggedUser.first_name}}</td>
-            <td>{{loggedUser.last_name}}</td>
-            <td>{{loggedUser.email}}</td>
-            <td>{{loggedUser.password}}</td>
-          </tr>
-          
-        </tbody>
-      </table>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card m-auto p-5 m-5">
+            <div class="card-body">
+              <h5 class="card-title">Full Name: {{loggedUser.first_name}} {{loggedUser.last_name}}</h5>
+              <h6>Email: {{loggedUser.email}}</h6>
+    
+              <a href="/edit/profile" class="btn btn-primary">Edit</a>
+              <a href="/delete/profile" class="btn btn-danger">Delete</a>
+    
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card m-auto p-5 m-5">
+            {% for post in myPosts %}
+            <div class="card-body">
+              <h5 class="card-title">Title: {{post.title}} </h5>
+              <h6>Content: {{post.content}}</h6>
+              <a href="/edit/profile" class="btn btn-primary">Edit</a>
+              <a href="/delete/post/{{post.id}}" class="btn btn-danger">Delete</a>
+    
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
     
 </body>
 </html>

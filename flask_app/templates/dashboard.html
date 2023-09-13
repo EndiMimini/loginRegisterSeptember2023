@@ -10,27 +10,30 @@
     <nav class="navbar navbar-light bg-light">
         <form class="container-fluid justify-content-between">
           <h1 class="me-2" type="button">Welcome {{loggedUser.first_name}}</h1>
-          <a href="/logout" class="btn btn-sm btn-outline-secondary" type="button">Logout</a>
-        </form>
+          <div>
+            <a href="/add/post" class="btn btn-sm btn-outline-warning" type="button">Create a Post</a>
+            <a href="/profile" class="btn btn-sm btn-outline-primary" type="button">Profile</a>
+            <a href="/logout" class="btn btn-sm btn-outline-secondary" type="button">Logout</a>
+        
+          </div>
+         </form>
       </nav>
+      <h1 class="text-center m-2">All Posts</h1>
+
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Email</th>
-            <th scope="col">Password</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+            <th scope="col">Creator</th>
           </tr>
         </thead>
         <tbody>
-            {% for user in users %}
+            {% for post in posts %}
           <tr>
-            <th scope="row">{{user.id}}</th>
-            <td>{{user.first_name}}</td>
-            <td>{{user.last_name}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.password}}</td>
+            <td>{{post.title}}</td>
+            <td>{{post.content}}</td>
+            <td>{{post.first_name}} {{post.last_name}}</td>
           </tr>
           {% endfor %}
           
